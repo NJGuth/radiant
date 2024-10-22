@@ -39,7 +39,7 @@ export default async function HeroPage({ params }: { params: { id: string } }) {
   ] as const;
 
   return (
-    <div className="grid min-h-screen grid-cols-1 gap-4 lg:grid-cols-4 lg:gap-8">
+    <div className="grid min-h-screen grid-cols-1 gap-2 lg:grid-cols-4 lg:gap-8">
       <div className="col-span-1 lg:col-span-1 2xl:col-span-2">
         <HeroHero imageUrl={hero.imageUrl ?? ""} />
       </div>
