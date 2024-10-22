@@ -1,0 +1,239 @@
+{
+  "id": "f3c53fcd-7ff7-4dde-8a26-76f671a18e1c",
+  "prevId": "1ff6e6c4-bddd-48cd-888e-8fc808e69f42",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.abilities": {
+      "name": "abilities",
+      "schema": "",
+      "columns": {
+        "ability_id": {
+          "name": "ability_id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "hero_id_ref": {
+          "name": "hero_id_ref",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ability_name": {
+          "name": "ability_name",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "image_url": {
+          "name": "image_url",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "abilities_hero_id_ref_hero_hero_id_fk": {
+          "name": "abilities_hero_id_ref_hero_hero_id_fk",
+          "tableFrom": "abilities",
+          "tableTo": "hero",
+          "columnsFrom": [
+            "hero_id_ref"
+          ],
+          "columnsTo": [
+            "hero_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "abilities_hero_id_ref_unique": {
+          "name": "abilities_hero_id_ref_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "hero_id_ref"
+          ]
+        }
+      }
+    },
+    "public.attributes": {
+      "name": "attributes",
+      "schema": "",
+      "columns": {
+        "attribute_id": {
+          "name": "attribute_id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "hero_id_ref": {
+          "name": "hero_id_ref",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "health": {
+          "name": "health",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "health_regen": {
+          "name": "health_regen",
+          "type": "numeric(3, 1)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "mana": {
+          "name": "mana",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "mana_regen": {
+          "name": "mana_regen",
+          "type": "numeric(3, 1)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "strength": {
+          "name": "strength",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "strength_gain": {
+          "name": "strength_gain",
+          "type": "numeric(3, 1)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "agility": {
+          "name": "agility",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "agility_gain": {
+          "name": "agility_gain",
+          "type": "numeric(3, 1)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "intelligence": {
+          "name": "intelligence",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "intelligence_gain": {
+          "name": "intelligence_gain",
+          "type": "numeric(3, 1)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "attributes_hero_id_ref_hero_hero_id_fk": {
+          "name": "attributes_hero_id_ref_hero_hero_id_fk",
+          "tableFrom": "attributes",
+          "tableTo": "hero",
+          "columnsFrom": [
+            "hero_id_ref"
+          ],
+          "columnsTo": [
+            "hero_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "attributes_hero_id_ref_unique": {
+          "name": "attributes_hero_id_ref_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "hero_id_ref"
+          ]
+        }
+      }
+    },
+    "public.hero": {
+      "name": "hero",
+      "schema": "",
+      "columns": {
+        "hero_id": {
+          "name": "hero_id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "hero_name": {
+          "name": "hero_name",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "image_url": {
+          "name": "image_url",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "attack": {
+          "name": "attack",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "type": {
+          "name": "type",
+          "type": "hero_type",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'strength'"
+        },
+        "complexity": {
+          "name": "complexity",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 1
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    }
+  },
+  "enums": {
+    "public.hero_type": {
+      "name": "hero_type",
+      "schema": "public",
+      "values": [
+        "strength",
+        "agility",
+        "intelligence"
+      ]
+    }
+  },
+  "schemas": {},
+  "sequences": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}
